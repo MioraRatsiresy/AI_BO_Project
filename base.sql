@@ -9,19 +9,24 @@ create database aiproject;
 CREATE EXTENSION pgcrypto;
 
 CREATE TABLE Administrator (
-  idAdministrator SERIAL NOT NULL, 
-  pseudologin     varchar(50) NOT NULL, 
+  idAdministrator SERIAL PRIMARY KEY NOT NULL, 
+  email     varchar(50) NOT NULL, 
   nom  varchar(50) NOT NULL, 
   prenom  varchar(50) NOT NULL, 
-  motdepasse   text, 
-  PRIMARY KEY (idAdministrator)
+  motdepasse   text
 );
 
 CREATE TABLE Utilisateur(
   idUtilisateur SERIAL PRIMARY KEY,
   nomutilisateur varchar(80),
   prenomutilisateur varchar(80),
+  email varchar(80),
+  motdepasse text
 );
+
+INSERT INTO Administrator values (default,'miora.ratsiresy@gmail.com','Ratsiresy','Miora Fanantenana',crypt('miora', gen_salt('bf')));
+
+
 
 CREATE TABLE Categorie(
   idCategorie SERIAL PRIMARY KEY NOT NULL,
