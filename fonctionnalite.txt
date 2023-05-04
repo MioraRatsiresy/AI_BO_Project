@@ -2,6 +2,7 @@ Administrateur
 - Gestion evenement
 - Gestion actualite
 - Gestion des catégories
+- Validation des publications
 
 Utilisateur
 -Recevoir l'actualite par e-mail
