@@ -1,0 +1,9 @@
+Administrateur
+- Gestion evenement
+- Gestion actualite
+- Gestion des catégories
+
+Utilisateur
+-Recevoir l'actualite par e-mail
+-Agenda de l'intelligence artificielle
+-Publier du contenu
