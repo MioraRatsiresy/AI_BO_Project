@@ -3,8 +3,10 @@ Administrateur
 - Gestion actualite
 - Gestion des catégories
 - Validation des publications
+- Login/Inscription
 
 Utilisateur
 -Recevoir l'actualite par e-mail
 -Agenda de l'intelligence artificielle
 -Publier du contenu
+-Login/Inscription
