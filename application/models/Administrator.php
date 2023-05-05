@@ -16,6 +16,12 @@ class Administrator extends CI_Model {
         }
         return $verif;
     }
+    public function insertionAdmin($email,$nom,     $prenom,$motdepasse)
+    {
+        $sql = "INSERT INTO Administrator values (default,".$this->db->escape($email).",".$this->db->escape($nom).",".$this->db->escape($prenom).",crypt(".$this->db->escape($motdepasse).", gen_salt('bf')))";
+        echo $sql;
+        $this->db->query($sql);
+    }
 }
 
 ?>

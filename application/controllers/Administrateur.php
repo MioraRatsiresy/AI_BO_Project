@@ -33,14 +33,48 @@ class Administrateur extends CI_Controller {
 		$this->load->view('pages/sign-in');	
     }
 	}
+	public function inscription()
+	{
+		$this->load->view('pages/sign-up');	
+	}
+	public function detail($id)
+	{
+		$this->load->model('Actualites');
+		$data['detail']=$this->Actualites->getActualitesDetail($id);
+		foreach($data['detail'] as $detail){
+			$data['idactualite']=$detail['idactualite'];
+			$data['photoillustration']=$detail['photoillustration'];
+			$data['grandtitre']=$detail['grandtitre'];
+			$data['descriptionactualite']=$detail['descriptionactualite'];
+			$data['datepublication']=$detail['datepublication'];
+			$data['datedebut']=$detail['datedebut'];
+			$data['datefin']=$detail['datefin'];
+			$data['lieuevenement']=$detail['lieuevenement'];
+		}
+		$this->load->view('pages/detail',$data);	
+	}
     public function accueil(){
 		if(!isset($_SESSION['idAdministrator'])){
-			redirect(base_url('Administrateur/index'));
+			redirect(base_url('IA-Connexion'));
 		}
 		else{
-		$this->load->view('pages/dashboard');
+			$this->load->model('Actualites');
+			if(isset($_GET['event']))
+			{
+				$actualite['actualite']=$this->Actualites->getEvenements();
+			}
+			else{
+			$actualite['actualite']=$this->Actualites->getActualites();
+			}
+			$actualite['type']=$this->Actualites->getTypeActualite();
+			$this->load->view('pages/dashboard',$actualite);	
 		}	
     }
+	public function listecategorie(){
+		$this->load->model('Categorie');
+		$categorie['categorie']=$this->Categorie->liste();
+		$this->load->view('pages/category',$categorie);	
+	}
 
     public function traitementlogin(){
 		if(!empty($_POST['email']) && !empty($_POST['mdp'])){
@@ -48,7 +82,7 @@ class Administrateur extends CI_Controller {
         	$idAdministrator = $this->Administrator->traitementLogin($_POST['email'],$_POST['mdp']);
         	if($idAdministrator!=null){
         		$_SESSION['idAdministrator'] = $idAdministrator;
-        		 redirect(base_url('Administrateur/accueil'));
+        		 redirect(base_url('IA-News'));
         	}else{
         		redirect(base_url('Administrateur/index?error=1'));
         	}
@@ -59,7 +93,70 @@ class Administrateur extends CI_Controller {
 	public function logout()
 	{
 		session_destroy();
-		redirect(base_url('Administrateur/index'));
+		redirect(base_url('IA-Connexion'));
+	}
+	public function ajoutArticle()
+	{
+		if (isset($_SESSION['idAdministrator'])) {
+		$idtypeactualite=$_POST['typeactualite'];
+		$grandtitre=$_POST['grandtitre'];
+		$descriptionactualite=$_POST['description'];
+		if(isset($_POST['datedebut'])){
+			$datedebut=$_POST['datedebut'];
+		}
+		else{
+			$datedebut=null;
+		}
+		if(isset($_POST['datefin'])){
+			$datefin=$_POST['datefin'];
+		}
+		else{
+			$datefin=null;
+		}
+		if(isset($_POST['lieuevenement'])){
+			$lieuevenement=$_POST['lieuevenement'];
+		}
+		else{
+			$lieuevenement=null;
+		}
+		date_default_timezone_set('America/New_York');
+		$namephoto="photo-".date("d-m-Y-H-i-s");
+		//config updload
+		$config['upload_path'] = './assets/img/upload/';
+		echo $config['upload_path'];
+		$config['allowed_types'] = 'jpeg|jpg|png|JPG|PNG';
+		$config['max_size'] = 20000;
+		$config['max_width'] = 7000;
+		$config['max_height'] = 7000;
+		$config['file_name'] = $namephoto;
+
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+
+		if (!$this->upload->do_upload('photo')) {
+			$error = array('error' => $this->upload->display_errors());
+			var_dump($error);
+		} else {
+			//get extension
+			$ext = pathinfo($_FILES['photo']['name'], PATHINFO_EXTENSION);
+			$photoillustration=$namephoto . '.' . $ext;
+			$this->load->model('Actualites');
+			$this->Actualites->insertionActualite($idtypeactualite,$photoillustration ,$grandtitre,$descriptionactualite,$datedebut,$datefin,$lieuevenement);
+			redirect(base_url('IA-News'));
+		}
+		}
+		else{
+			redirect(base_url('IA-Connexion'));
+		}
+	}
+	public function ajoutAdmin(){
+		$this->load->model('Administrator');
+		$email=$_POST['email'];
+		$nom=$_POST['nom'];
+		$prenom=$_POST['prenom'];
+		$motdepasse=$_POST['motdepasse'];
+		$this->Administrator->insertionAdmin($email,$nom,$prenom,$motdepasse);
+		redirect(base_url('IA-Connexion'));
 	}
 	
 }

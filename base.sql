@@ -16,16 +16,7 @@ CREATE TABLE Administrator (
   motdepasse   text
 );
 
-CREATE TABLE Utilisateur(
-  idUtilisateur SERIAL PRIMARY KEY,
-  nomutilisateur varchar(80),
-  prenomutilisateur varchar(80),
-  email varchar(80),
-  motdepasse text
-);
-
 INSERT INTO Administrator values (default,'miora.ratsiresy@gmail.com','Ratsiresy','Miora Fanantenana',crypt('miora', gen_salt('bf')));
-
 
 
 CREATE TABLE Categorie(
@@ -33,23 +24,53 @@ CREATE TABLE Categorie(
   categorie varchar(80)
 );
 
+insert into Categorie values (default,'Deep & Reinforcement Learning');
+insert into Categorie values (default,'Enterprise');
+insert into Categorie values (default,'Ethics & Society');
+insert into Categorie values (default,'Industries');
+insert into Categorie values (default,'Machine Learning');
+insert into Categorie values (default,'Robotics');
+
 
 CREATE TABLE TypeActualite(
   idTypeActualite SERIAL PRIMARY KEY NOT NULL,
   typeactualite varchar(80)
 );
 
+insert into TypeActualite values(default,'Article');
+insert into TypeActualite values(default,'Evenement');
+
 CREATE TABLE Actualites(
   idActualite SERIAL PRIMARY KEY NOT NULL,
-  auteur int,
+  idtypeactualite int,
   photoillustration varchar(100),
   grandtitre varchar(80),
   descriptionactualite text,
-  datepublication timestamp
-  datedebut timestamp,
-  datefin timestamp,
-  lieuevenement varchar(80),
-  etat int default 0
+  datepublication timestamp default  now(),
+  datedebut timestamp default NULL,
+  datefin timestamp default NULL,
+  lieuevenement varchar(80) default NULL,
+  etat int default 0 ---0 en cours 4 removed
+);
+ALTER TABLE Actualites ADD FOREIGN KEY(idtypeactualite) REFERENCES TypeActualite(idtypeactualite);
+
+CREATE TABLE ActualiteCategorie(
+  idActualite int,
+  idCategorie int
+);
+
+ALTER TABLE ActualiteCategorie ADD FOREIGN KEY(idActualite) REFERENCES Actualites(idActualite);
+ALTER TABLE ActualiteCategorie ADD FOREIGN KEY(idCategorie) REFERENCES Categorie(idCategorie);
+
+
+
+
+CREATE TABLE Utilisateur(
+  idUtilisateur SERIAL PRIMARY KEY,
+  nomutilisateur varchar(80),
+  prenomutilisateur varchar(80),
+  email varchar(80),
+  motdepasse text
 );
 
 CREATE TABLE CommentaireActualite(
