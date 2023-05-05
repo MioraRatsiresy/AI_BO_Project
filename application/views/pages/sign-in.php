@@ -38,6 +38,7 @@
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrCGNwK2DSoolt2JNNihM1Uhn9DKjk_ZA"></script>
 </head>
 
 <body class="bg-gray-200">
@@ -51,6 +52,9 @@
     </div>
   </div>
   <main class="main-content  mt-0">
+    <div id="map">
+
+    </div>
     <div class="page-header align-items-start min-vh-100">
       <span class="mask bg-gradient-dark opacity-6"></span>
       <div class="container my-auto">
@@ -63,7 +67,8 @@
                 </div>
               </div>
               <div class="card-body">
-                <form role="form"  method="POST" action="<?php echo base_url('Administrateur/traitementlogin');?>" class="text-start">
+                <form role="form" method="POST" action="<?php echo base_url('Administrateur/traitementlogin'); ?>"
+                  class="text-start">
                   <div class="input-group input-group-outline my-3">
                     <label class="form-label">Email</label>
                     <input type="email" class="form-control" name="email">
@@ -72,18 +77,19 @@
                     <label class="form-label">Password</label>
                     <input type="password" class="form-control" name="mdp">
                   </div>
-                  <?php 
-                  if(isset($erreur)){?>
-                  <div class="alert alert-danger" role="alert">
-                    A simple primary alert—check it out!
-                  </div>
+                  <?php
+                  if (isset($erreur)) { ?>
+                    <div class="alert alert-danger" role="alert">
+                      A simple primary alert—check it out!
+                    </div>
                   <?php } ?>
                   <div class="text-center">
                     <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign in</button>
                   </div>
                   <p class="mt-4 text-sm text-center">
                     Don't have an account?
-                    <a href="<?php echo base_url('IA-Sign-Up');?>" class="text-primary text-gradient font-weight-bold">Sign up</a>
+                    <a href="<?php echo base_url('IA-Sign-Up'); ?>"
+                      class="text-primary text-gradient font-weight-bold">Sign up</a>
                   </p>
                 </form>
               </div>
@@ -93,6 +99,18 @@
       </div>
     </div>
   </main>
+  <script>
+    console.log("ZEty");
+    initMap();
+    function initMap() {
+      var map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 48.8566, lng: 2.3522 },
+        zoom: 12,
+      });
+    }
+
+  </script>
+
   <!--   Core JS Files   -->
   <script src="<?php echo base_url('assets/js/core/popper.min.js'); ?>"></script>
   <script src="<?php echo base_url('assets/js/core/bootstrap.min.js'); ?>"></script>
