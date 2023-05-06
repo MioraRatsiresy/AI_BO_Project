@@ -38,7 +38,6 @@
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrCGNwK2DSoolt2JNNihM1Uhn9DKjk_ZA"></script>
 </head>
 
 <body class="bg-gray-200">
@@ -99,17 +98,23 @@
       </div>
     </div>
   </main>
-  <script>
-    console.log("ZEty");
-    initMap();
-    function initMap() {
-      var map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 48.8566, lng: 2.3522 },
-        zoom: 12,
-      });
-    }
-
-  </script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript">
+		function initialize() {
+			var mapOptions = {
+				center: new google.maps.LatLng(-18.397232, 45.644123),  // la latitude et la longitude de la carte
+				zoom: 6, // le zoom sur l'image
+			};
+			var carte = new google.maps.Map(document.getElementById("map"), mapOptions); // dessiner la carte
+			var location = new google.maps.LatLng(-18.397232, 45.644123); // mettre un point sur la carte
+			var marker = new google.maps.Marker({
+				position: location, // mettre la position du marker sur la carte
+				draggable: true, // le point peut etre deplace
+				map: carte // la carte par defaut
+			});
+		}
+		google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
 
   <!--   Core JS Files   -->
   <script src="<?php echo base_url('assets/js/core/popper.min.js'); ?>"></script>
