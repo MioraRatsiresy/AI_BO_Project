@@ -20,6 +20,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="<?php echo base_url('assets/img/apple-icon.png'); ?>">
   <link rel="icon" type="image/png" href="<?php echo base_url('assets/img/favicon.png'); ?>">
+  <style type="text/css">
+		#carteId{
+			height: 100%;
+		}
+	</style>
   <title>
     IA~Project-Accueil
   </title>
@@ -39,6 +44,23 @@
   <!-- Nepcha Analytics (nepcha.com) -->
   <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
   <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript">
+		function initialize() {
+			var mapOptions = {
+				center: new google.maps.LatLng(-18.397232, 45.644123),  // la latitude et la longitude de la carte
+				zoom: 6, // le zoom sur l'image
+			};
+			var carte = new google.maps.Map(document.getElementById("carteId"), mapOptions); // dessiner la carte
+			var location = new google.maps.LatLng(-18.397232, 45.644123); // mettre un point sur la carte
+			var marker = new google.maps.Marker({
+				position: location, // mettre la position du marker sur la carte
+				draggable: true, // le point peut etre deplace
+				map: carte // la carte par defaut
+			});
+		}
+		google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -144,6 +166,8 @@
     </nav>
     <!-- End Navbar -->
     <div class="row mt-4">
+    <div id="carteId">
+    </div>
       <?php foreach ($actualite as $actualite) { ?>
         <a href="<?php echo base_url('Actualites/'.$actualite['grandtitre'].'/'.$actualite['idactualite'])?>"><div class="col-lg-4 col-md-6 mt-4 mb-4" >
           <div class="card z-index-2 ">

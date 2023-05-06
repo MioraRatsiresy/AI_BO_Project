@@ -51,9 +51,6 @@
     </div>
   </div>
   <main class="main-content  mt-0">
-    <div id="map">
-
-    </div>
     <div class="page-header align-items-start min-vh-100">
       <span class="mask bg-gradient-dark opacity-6"></span>
       <div class="container my-auto">
@@ -98,23 +95,6 @@
       </div>
     </div>
   </main>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-	<script type="text/javascript">
-		function initialize() {
-			var mapOptions = {
-				center: new google.maps.LatLng(-18.397232, 45.644123),  // la latitude et la longitude de la carte
-				zoom: 6, // le zoom sur l'image
-			};
-			var carte = new google.maps.Map(document.getElementById("map"), mapOptions); // dessiner la carte
-			var location = new google.maps.LatLng(-18.397232, 45.644123); // mettre un point sur la carte
-			var marker = new google.maps.Marker({
-				position: location, // mettre la position du marker sur la carte
-				draggable: true, // le point peut etre deplace
-				map: carte // la carte par defaut
-			});
-		}
-		google.maps.event.addDomListener(window, 'load', initialize);
-	</script>
 
   <!--   Core JS Files   -->
   <script src="<?php echo base_url('assets/js/core/popper.min.js'); ?>"></script>
