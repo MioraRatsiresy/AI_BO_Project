@@ -6615,10 +6615,6 @@ fieldset:disabled .btn {
   opacity: 0;
 }
 
-.modal-backdrop.show {
-  opacity: var(--bs-backdrop-opacity);
-}
-
 .modal-header {
   display: flex;
   flex-shrink: 0;

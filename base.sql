@@ -21,15 +21,16 @@ INSERT INTO Administrator values (default,'miora.ratsiresy@gmail.com','Ratsiresy
 
 CREATE TABLE Categorie(
   idCategorie SERIAL PRIMARY KEY NOT NULL,
-  categorie varchar(80)
+  categorie varchar(80),
+  etat int default 0
 );
 
-insert into Categorie values (default,'Deep & Reinforcement Learning');
-insert into Categorie values (default,'Enterprise');
-insert into Categorie values (default,'Ethics & Society');
-insert into Categorie values (default,'Industries');
-insert into Categorie values (default,'Machine Learning');
-insert into Categorie values (default,'Robotics');
+insert into Categorie(categorie) values ('Deep & Reinforcement Learning');
+insert into Categorie(categorie) values ('Enterprise');
+insert into Categorie(categorie) values ('Ethics & Society');
+insert into Categorie(categorie) values ('Industries');
+insert into Categorie(categorie) values ('Machine Learning');
+insert into Categorie(categorie) values ('Robotics');
 
 
 CREATE TABLE TypeActualite(

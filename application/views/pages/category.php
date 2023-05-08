@@ -41,7 +41,7 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
-<aside
+  <aside
     class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3  bg-transparent"
     id="sidenav-main">
     <div class="sidenav-header">
@@ -57,7 +57,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-dark active bg-gradient-primary" href="<?php echo base_url('IA-News') ;?>">
+          <a class="nav-link text-dark active bg-gradient-primary" href="<?php echo base_url('IA-News'); ?>">
             <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
@@ -65,7 +65,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark " href="<?php echo base_url('IA-News?event=1') ;?>">
+          <a class="nav-link text-dark " href="<?php echo base_url('IA-News?event=1'); ?>">
             <div class="text-dark text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">table_view</i>
             </div>
@@ -136,23 +136,27 @@
       </div>
     </nav>
     <!-- End Navbar -->
-      <div class="card-body pt-4 p-3">
-        <ul class="list-group">
+    <div class="card-body pt-4 p-3">
+      <ul class="list-group">
         <?php foreach ($categorie as $categorie) { ?>
           <li class="list-group-item border-0 d-flex p-4 mb-2 mt-3 bg-gray-100 border-radius-lg">
             <div class="d-flex flex-column">
-              <h6 class="mb-3 text-sm"><?php echo $categorie['categorie'];?></h6>
+              <h6 class="mb-3 text-sm">
+                <?php echo $categorie['categorie']; ?>
+              </h6>
             </div>
             <div class="ms-auto text-end">
-              <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i
+              <a class="btn btn-link text-danger text-gradient px-3 mb-0"
+                href="<?php echo base_url('Administrateur/deletecategorie?idcategorie=' . $categorie['idcategorie']); ?>"><i
                   class="material-icons text-sm me-2">delete</i>Delete</a>
-              <a class="btn btn-link text-dark px-3 mb-0" href="javascript:;"><i
+              <a class="btn btn-link text-dark px-3 mb-0" href="#"
+                onclick="modifierdonnee('<?php echo $categorie['categorie'] ?>',<?php echo $categorie['idcategorie'] ?>);"><i
                   class="material-icons text-sm me-2">edit</i>Edit</a>
             </div>
           </li>
-          <?php } ?>
-        </ul>
-      </div>
+        <?php } ?>
+      </ul>
+    </div>
   </main>
   <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
@@ -188,6 +192,28 @@
             <span class="badge filter bg-gradient-danger" data-color="danger" onclick="sidebarColor(this)"></span>
           </div>
         </a>
+        <!-- Modal -->
+        <div class="modal fade" id="categorieupdate" tabindex="-1" aria-labelledby="articleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="articleModalLabel">Modifier catégorie</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="<?php echo base_url('Administrateur/modifiercategorie'); ?>">
+                  <div class="mb-3">
+                    <label for="title" class="form-label">Categorie</label>
+                    <input type="text" class="form-control" id="categorie" name="categorie" required>
+                    <input type="hidden" name="idcategorie" id="idcategorie">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- Sidenav Type -->
         <div class="mt-3">
           <h6 class="mb-0">Sidenav Type</h6>
@@ -238,6 +264,16 @@
       </div>
     </div>
   </div>
+  <script>
+    function modifierdonnee(categorie, id) {
+      document.getElementById('categorie').value = categorie;
+      document.getElementById('idcategorie').value = id;
+      var myModal = new bootstrap.Modal(document.getElementById('categorieupdate'))
+      myModal.show()
+      //  $('#categorieupdate').modal('show');
+    }
+  </script>
+
   <!--   Core JS Files   -->
   <script src="<?php echo base_url('assets/js/core/popper.min.js'); ?>"></script>
   <script src="<?php echo base_url('assets/js/core/bootstrap.min.js'); ?>"></script>

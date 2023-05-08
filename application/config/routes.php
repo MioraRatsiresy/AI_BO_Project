@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Administrateur';
 $route['IA-News'] = 'Administrateur/accueil';
 $route['IA-Connexion'] = 'Administrateur/index';
+$route['IA-Actualite']='Administrateur/listeactualite';
 $route['IA-Sign-Up'] = 'Administrateur/inscription';
 $route['IA-Category-list'] = 'Administrateur/listecategorie';
 $route['Actualites/(:any)/(:any)'] = 'Administrateur/detail/$2';
