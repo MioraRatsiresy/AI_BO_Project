@@ -67,11 +67,11 @@
                   class="text-start">
                   <div class="input-group input-group-outline my-3">
                     <label class="form-label">Email</label>
-                    <input type="email" class="form-control" name="email">
+                    <input type="email" class="form-control" name="email" value="miora.ratsiresy@gmail.com">
                   </div>
                   <div class="input-group input-group-outline mb-3">
                     <label class="form-label">Password</label>
-                    <input type="password" class="form-control" name="mdp">
+                    <input type="password" class="form-control" name="mdp" value="miora">
                   </div>
                   <?php
                   if (isset($erreur)) { ?>
