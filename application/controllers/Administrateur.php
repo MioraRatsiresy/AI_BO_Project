@@ -53,6 +53,25 @@ class Administrateur extends CI_Controller
 		}
 		$this->load->view('pages/detail', $data);
 	}
+	public function detailfront($id)
+	{
+		$this->load->model('Actualites');
+		$data['detail'] = $this->Actualites->getActualitesDetail($id);
+		foreach ($data['detail'] as $detail) {
+			$data['idactualite'] = $detail['idactualite'];
+			$data['photoillustration'] = $detail['photoillustration'];
+			$data['grandtitre'] = $detail['grandtitre'];
+			$data['descriptionactualite'] = $detail['descriptionactualite'];
+			$data['datepublication'] = $detail['datepublication'];
+			$data['datedebut'] = $detail['datedebut'];
+			$data['datefin'] = $detail['datefin'];
+			$data['lieuevenement'] = $detail['lieuevenement'];
+		}
+
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($data));
+	}
 	public function accueil()
 	{
 		if (!isset($_SESSION['idAdministrator'])) {
@@ -113,16 +132,28 @@ class Administrateur extends CI_Controller
 	public function listeactualite()
 	{
 		$this->load->model('Actualites');
-		if (isset($_GET['event'])) {
-			$actualite['actualite'] = $this->Actualites->getEvenements();
-		} else {
-			$actualite['actualite'] = $this->Actualites->getActualites();
-		}
-		$actualite['type'] = $this->Actualites->getTypeActualite();
+		$actualite = $this->Actualites->getActualites();
 		$this->output
 			->set_content_type('application/json')
 			->set_output(json_encode($actualite));
 	}
+	public function listeevenement()
+	{
+		$this->load->model('Actualites');
+		$event = $this->Actualites->getEvenements();
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($event));
+	}
+	public function listecategoriefront()
+	{
+		$this->load->model('Categorie');
+		$categorie = $this->Categorie->liste();
+		$this->output
+			->set_content_type('application/json')
+			->set_output(json_encode($categorie));
+	}
+
 	public function ajoutArticle()
 	{
 		if (isset($_SESSION['idAdministrator'])) {

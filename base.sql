@@ -22,7 +22,8 @@ INSERT INTO Administrator values (default,'miora.ratsiresy@gmail.com','Ratsiresy
 CREATE TABLE Categorie(
   idCategorie SERIAL PRIMARY KEY NOT NULL,
   categorie varchar(80),
-  etat int default 0
+  etat int default 0,
+  imagecategorie varchar(80) default null
 );
 
 insert into Categorie(categorie) values ('Deep & Reinforcement Learning');
