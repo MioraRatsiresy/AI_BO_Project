@@ -1,0 +1,16 @@
+name: AI_BO_PROJECT
+services:
+  - name: php
+    plan: php-free
+    env:
+      DOCUMENT_ROOT: ./public
+      PHP_VERSION: "8.0"
+      APP_ENV: production
+  - name: postgresql
+    plan: hobby-dev
+    env:
+      POSTGRES_DB: railway
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: QkhlnpYbkpM5Pmwyu9JC
+      POSTGRES_HOST: containers-us-west-30.railway.app
+      POSTGRES_PORT: 6777
